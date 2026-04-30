@@ -36,7 +36,15 @@
 .cornerBottom { transform: rotate(180deg); }
 .rank { font-size: 0.75rem; font-weight: 800; line-height: 1; font-family: 'Inter', sans-serif; }
 .suitSm { font-size: 0.7rem; line-height: 1; }
-.suitCenter { font-size: 1.6rem; line-height: 1; }
+.suitCenter {
+  font-size: 1.6rem;
+  line-height: 1;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
 
 .spades .rank, .spades .suitSm, .spades .suitCenter { color: #1a1a2e; }
 .clubs .rank, .clubs .suitSm, .clubs .suitCenter  { color: #1a1a2e; }
@@ -185,10 +193,7 @@
 
 .playerHandCardWrapper:hover {
   z-index: 20 !important;
-  transform: translateY(-8px);
-}
-.playerHandCardWrapper:hover ~ .playerHandCardWrapper {
-  transform: translateX(12px);
+  transform: translateY(-10px);
 }
 
 @keyframes trickWin {
