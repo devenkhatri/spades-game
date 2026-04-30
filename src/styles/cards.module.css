@@ -14,7 +14,6 @@
   padding: 3px;
   position: relative;
   cursor: pointer;
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
   user-select: none;
   flex-shrink: 0;
   box-shadow: 0 2px 8px rgba(0,0,0,0.4);
@@ -27,8 +26,7 @@
   .card { --card-w: 66px; --card-h: 93px; --card-radius: 10px; }
 }
 
-.card:hover { transform: translateY(-12px); box-shadow: 0 12px 24px rgba(0,0,0,0.5); }
-.card.selected { transform: translateY(-16px); box-shadow: 0 0 0 2px #c9a227, 0 14px 28px rgba(201,162,39,0.4); }
+.card.selected { box-shadow: 0 0 0 2px #c9a227, 0 14px 28px rgba(201,162,39,0.4); }
 .card.unplayable { opacity: 0.45; cursor: not-allowed; }
 .card.unplayable:hover { transform: none; }
 
@@ -194,6 +192,41 @@
 .playerHandCardWrapper {
   position: relative;
   z-index: 10;
+  touch-action: manipulation;
+}
+
+.playerHandCardWrapper + .playerHandCardWrapper {
+  margin-left: -28px;
+}
+
+@media(min-width: 380px) {
+  .playerHandCardWrapper + .playerHandCardWrapper {
+    margin-left: -24px;
+  }
+}
+
+@media(min-width: 480px) {
+  .playerHandCardWrapper + .playerHandCardWrapper {
+    margin-left: -16px;
+  }
+}
+
+@media(min-width: 768px) {
+  .playerHandCardWrapper + .playerHandCardWrapper {
+    margin-left: -12px;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .playerHandCardWrapper:hover {
+    z-index: 20;
+  }
+}
+
+@media (hover: none) and (pointer: coarse) {
+  .playerHandCardWrapper:active {
+    z-index: 20;
+  }
 }
 
 @keyframes trickWin {
