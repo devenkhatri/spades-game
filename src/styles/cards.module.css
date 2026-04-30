@@ -100,8 +100,8 @@
 
 /* Play area cards: larger fixed size, proper 2.5:3.5 aspect ratio */
 .playCard {
-  --play-w: 58px;
-  --play-h: 82px;
+  --play-w: 64px;
+  --play-h: 90px;
   width: var(--play-w);
   height: var(--play-h);
   border-radius: 8px;
@@ -116,8 +116,8 @@
   animation: dealIn 0.2s ease;
   position: relative;
 }
-@media(min-width:480px) { .playCard { --play-w: 66px; --play-h: 93px; } }
-@media(min-width:768px) { .playCard { --play-w: 72px; --play-h: 102px; border-radius: 10px; } }
+@media(min-width:480px) { .playCard { --play-w: 76px; --play-h: 106px; } }
+@media(min-width:768px) { .playCard { --play-w: 84px; --play-h: 118px; border-radius: 10px; } }
 @keyframes dealIn { from { transform: scale(0.7) translateY(-10px); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 .playCard.winning { box-shadow: 0 0 0 2px #c9a227, 0 6px 20px rgba(201,162,39,0.4); }
 

@@ -19,7 +19,8 @@ export default function GamePage() {
     roundSummary,
     nextRound,
     winner,
-    updateState
+    updateState,
+    completedGames
   } = useSpadesGame();
 
   const [bidVal, setBidVal] = useState(3);
@@ -69,10 +70,14 @@ export default function GamePage() {
     }}>
       {/* Left: Coin/Status */}
       <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
-        <div style={{ width: 36, height: 36, borderRadius: '50%', background: 'linear-gradient(135deg, #f1c40f, #f39c12)', border: '2px solid #fff', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#000', fontWeight: 'bold' }}>7</div>
+        <div style={{ width: 36, height: 36, borderRadius: '50%', background: 'linear-gradient(135deg, #f1c40f, #f39c12)', border: '2px solid #fff', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#000', fontWeight: 'bold' }}>{completedGames}</div>
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', background: 'rgba(255,255,255,0.1)', borderRadius: 12, padding: '2px 8px' }}>
           <span style={{ fontSize: '0.8rem' }}>🏆</span>
           <span style={{ fontSize: '0.5rem', textTransform: 'uppercase' }}>Finished</span>
+        </div>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', background: state.spadesBroken ? 'rgba(231,76,60,0.2)' : 'rgba(255,255,255,0.1)', borderRadius: 12, padding: '2px 8px', border: state.spadesBroken ? '1px solid #e74c3c' : '1px solid transparent' }}>
+          <span style={{ fontSize: '0.8rem' }}>♠</span>
+          <span style={{ fontSize: '0.5rem', textTransform: 'uppercase' }}>{state.spadesBroken ? 'Broken' : 'Not Broken'}</span>
         </div>
       </div>
 
@@ -179,7 +184,6 @@ export default function GamePage() {
         <div style={{ position: 'absolute', bottom: 10, left: 0, right: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', zIndex: 10 }}>
           
           <div style={{ display: 'flex', alignItems: 'center', gap: 20, marginBottom: 10 }}>
-             <button style={{ width: 40, height: 40, borderRadius: '50%', background: 'rgba(0,0,0,0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.4rem', border: '1px solid rgba(255,255,255,0.1)' }}>💡</button>
              <PlayerArea player="south" name="You" avatar="Y" bid={state.bids.south} tricks={state.tricks.south} isHuman />
           </div>
 

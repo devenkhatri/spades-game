@@ -33,6 +33,7 @@ export function useSpadesGame() {
   const [toast, setToast] = useState<{msg: string, type: string} | null>(null);
   const [roundSummary, setRoundSummary] = useState<{ result: RoundResult, us: number, them: number, bUs: number, bThem: number} | null>(null);
   const [winner, setWinner] = useState<'us' | 'them' | null>(null);
+  const [completedGames, setCompletedGames] = useState(0);
 
   const resolvePlayerCardRef = useRef<((card: Card) => void) | null>(null);
 
@@ -220,6 +221,7 @@ export function useSpadesGame() {
   const nextRound = useCallback(() => {
     if (winner) {
       updateState({ phase: 'gameOver' });
+      setCompletedGames(g => g + 1);
     } else {
       updateState({ round: state.round + 1 });
       startRound({ ...state, round: state.round + 1 });
@@ -236,6 +238,7 @@ export function useSpadesGame() {
     roundSummary,
     nextRound,
     winner,
-    updateState
+    updateState,
+    completedGames
   };
 }

@@ -34,6 +34,7 @@ export const Card: React.FC<CardProps> = ({ card, faceDown, selected, unplayable
         <div className={styles.rank}>{card.rank}</div>
         <div className={styles.suitSm}>{card.symbol}</div>
       </div>
+      <div className={styles.suitCenter}>{card.symbol}</div>
     </div>
   );
 };
