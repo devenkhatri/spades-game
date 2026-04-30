@@ -1,6 +1,6 @@
 .card {
-  --card-w: 44px;
-  --card-h: 62px;
+  --card-w: 48px;
+  --card-h: 68px;
   --card-radius: 6px;
   width: var(--card-w);
   height: var(--card-h);
@@ -21,10 +21,10 @@
 }
 
 @media(min-width:480px){
-  .card { --card-w: 56px; --card-h: 78px; --card-radius: 8px; }
+  .card { --card-w: 58px; --card-h: 82px; --card-radius: 8px; }
 }
 @media(min-width:768px){
-  .card { --card-w: 66px; --card-h: 92px; --card-radius: 10px; }
+  .card { --card-w: 66px; --card-h: 93px; --card-radius: 10px; }
 }
 
 .card:hover { transform: translateY(-12px); box-shadow: 0 12px 24px rgba(0,0,0,0.5); }
@@ -83,23 +83,29 @@
   border-radius: 4px;
 }
 
+
+/* Play area cards: larger fixed size, proper 2.5:3.5 aspect ratio */
 .playCard {
-  width: calc(var(--card-w) * 0.9);
-  height: calc(var(--card-h) * 0.9);
-  border-radius: var(--card-radius);
+  --play-w: 58px;
+  --play-h: 82px;
+  width: var(--play-w);
+  height: var(--play-h);
+  border-radius: 8px;
   background: #fff;
-  border: 1px solid #ddd;
+  border: 1px solid #ccc;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  padding: 3px;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.5);
+  padding: 4px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.6);
   animation: dealIn 0.2s ease;
   position: relative;
 }
+@media(min-width:480px) { .playCard { --play-w: 66px; --play-h: 93px; } }
+@media(min-width:768px) { .playCard { --play-w: 72px; --play-h: 102px; border-radius: 10px; } }
 @keyframes dealIn { from { transform: scale(0.7) translateY(-10px); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-.playCard.winning { box-shadow: 0 0 0 2px #c9a227, 0 4px 16px rgba(201,162,39,0.4); }
+.playCard.winning { box-shadow: 0 0 0 2px #c9a227, 0 6px 20px rgba(201,162,39,0.4); }
 
 .miniCard {
   width: 26px;
