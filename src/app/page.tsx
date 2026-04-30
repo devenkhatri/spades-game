@@ -135,8 +135,8 @@ export default function GamePage() {
 
       {/* Bidding Modal */}
       {state.phase === 'bidding' && !state.bids.south && (
-        <div className="modal-backdrop">
-          <div className="modal-sheet">
+        <div className="modal-backdrop" style={{ background: 'rgba(0,0,0,0.4)', backdropFilter: 'none', alignItems: 'center' }}>
+          <div className="modal-sheet" style={{ borderRadius: 'var(--radius-lg)', borderBottom: '1px solid var(--glass-border)', margin: '1rem' }}>
             <div className="modal-header"><h2>Place Your Bid</h2></div>
             <div className="modal-body">
               <div style={{ display: 'flex', justifyContent: 'center', gap: '2rem', margin: '2rem 0' }}>
