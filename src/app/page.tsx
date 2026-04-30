@@ -192,20 +192,35 @@ export default function GamePage() {
 
       {/* ── PLAYER HAND — always visible at bottom ── */}
       <div style={{ flexShrink: 0, background: 'rgba(5,10,20,0.85)', borderTop: '1px solid rgba(255,255,255,0.07)', zIndex: 5 }}>
-        <div className={styles.playerHandContainer} style={{ paddingTop: 14, paddingBottom: 4, minHeight: 'auto' }}>
-          {state.hands.south.map((card, i) => {
-            const isPlayable = playable.some(c => c.suit === card.suit && c.rank === card.rank);
-            return (
-              <div key={i} className={styles.playerHandCardWrapper} style={{ zIndex: isPlayable ? 10 : 1 }}>
-                <Card
-                  card={card}
-                  unplayable={awaitingPlayerCard && !isPlayable}
-                  onClick={() => { if(isPlayable) handlePlayerCardPlay(card); }}
-                />
-              </div>
-            );
-          })}
-        </div>
+        {isBidding ? (
+          /* BIDDING MODE: flat fully-visible scrollable row — no overlap */
+          <div>
+            <div style={{ fontSize: '0.6rem', color: 'var(--text-muted)', textAlign: 'center', padding: '6px 0 2px', textTransform: 'uppercase', letterSpacing: '0.08em' }}>Your Hand — scroll to see all</div>
+            <div style={{ display: 'flex', gap: 5, overflowX: 'auto', padding: '6px 12px 8px', WebkitOverflowScrolling: 'touch', scrollbarWidth: 'none' } as React.CSSProperties}>
+              {state.hands.south.map((card, i) => (
+                <div key={i} style={{ flexShrink: 0 }}>
+                  <Card card={card} />
+                </div>
+              ))}
+            </div>
+          </div>
+        ) : (
+          /* PLAY MODE: overlapping fan */
+          <div className={styles.playerHandContainer} style={{ paddingTop: 14, paddingBottom: 4, minHeight: 'auto' }}>
+            {state.hands.south.map((card, i) => {
+              const isPlayable = playable.some(c => c.suit === card.suit && c.rank === card.rank);
+              return (
+                <div key={i} className={styles.playerHandCardWrapper} style={{ zIndex: isPlayable ? 10 : 1 }}>
+                  <Card
+                    card={card}
+                    unplayable={awaitingPlayerCard && !isPlayable}
+                    onClick={() => { if(isPlayable) handlePlayerCardPlay(card); }}
+                  />
+                </div>
+              );
+            })}
+          </div>
+        )}
         <PlayerArea player="south" name="You" avatar="YOU" bid={state.bids.south} tricks={state.tricks.south} lastTrick={state.lastTrickWonBy.south} isHuman />
       </div>
 
