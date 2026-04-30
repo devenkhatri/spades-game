@@ -218,9 +218,10 @@
   }
 }
 
+/* Only apply hover lift on mouse/pointer devices, not touch */
 @media (hover: hover) and (pointer: fine) {
   .playerHandCardWrapper:hover {
-    z-index: 20 !important;
+    z-index: 20;
     transform: translateY(-10px);
   }
 }
