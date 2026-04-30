@@ -161,14 +161,15 @@
 .playerHandContainer {
   display: flex;
   justify-content: center;
-  padding: 0.5rem 0;
-  min-height: 90px;
+  padding: 0.5rem 1rem 0.25rem;
+  min-height: auto;
   width: 100%;
-  max-width: 100vw;
   overflow-x: auto;
   overflow-y: visible;
   -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
 }
+.playerHandContainer::-webkit-scrollbar { display: none; }
 
 .playerHandCardWrapper {
   position: relative;
@@ -176,18 +177,18 @@
 }
 
 .playerHandCardWrapper + .playerHandCardWrapper {
-  margin-left: -30px;
+  margin-left: -20px;
 }
 
 @media(min-width: 480px) {
   .playerHandCardWrapper + .playerHandCardWrapper {
-    margin-left: -26px;
+    margin-left: -16px;
   }
 }
 
 @media(min-width: 768px) {
   .playerHandCardWrapper + .playerHandCardWrapper {
-    margin-left: -20px;
+    margin-left: -12px;
   }
 }
 
