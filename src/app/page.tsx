@@ -100,7 +100,10 @@ export default function GamePage() {
       </header>
 
       {/* ── TABLE ── takes remaining vertical space */}
-      <main className="pokerTable" style={{ flex: 1, position: 'relative', display: 'flex', flexDirection: 'column', overflow: 'hidden', minHeight: 0 }}>
+      <main className="pokerTable" style={{ position: 'relative', display: 'flex', flexDirection: 'column', overflow: 'hidden', minHeight: 0,
+        flex: isBidding ? '0 0 auto' : 1,
+        maxHeight: isBidding ? '38vh' : undefined
+      }}>
 
         {/* North */}
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '0.4rem 0.5rem 0.2rem', gap: 3, flexShrink: 0, zIndex: 4 }}>
@@ -193,16 +196,13 @@ export default function GamePage() {
       {/* ── PLAYER HAND — always visible at bottom ── */}
       <div style={{ flexShrink: 0, background: 'rgba(5,10,20,0.85)', borderTop: '1px solid rgba(255,255,255,0.07)', zIndex: 5 }}>
         {isBidding ? (
-          /* BIDDING MODE: flat fully-visible scrollable row — no overlap */
-          <div>
-            <div style={{ fontSize: '0.6rem', color: 'var(--text-muted)', textAlign: 'center', padding: '6px 0 2px', textTransform: 'uppercase', letterSpacing: '0.08em' }}>Your Hand — scroll to see all</div>
-            <div style={{ display: 'flex', gap: 5, overflowX: 'auto', padding: '6px 12px 8px', WebkitOverflowScrolling: 'touch', scrollbarWidth: 'none' } as React.CSSProperties}>
-              {state.hands.south.map((card, i) => (
-                <div key={i} style={{ flexShrink: 0 }}>
-                  <Card card={card} />
-                </div>
-              ))}
-            </div>
+          /* BIDDING MODE: wrapping grid — all 13 cards visible at once, no scroll */
+          <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: 5, padding: '8px 10px 4px' }}>
+            {state.hands.south.map((card, i) => (
+              <div key={i} style={{ flexShrink: 0 }}>
+                <Card card={card} />
+              </div>
+            ))}
           </div>
         ) : (
           /* PLAY MODE: overlapping fan */
