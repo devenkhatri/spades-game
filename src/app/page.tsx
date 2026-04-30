@@ -174,7 +174,7 @@ export default function GamePage() {
         <div style={{ flex: 1, display: 'grid', gridTemplateColumns: 'auto 1fr auto', minHeight: 0, padding: '0 0.25rem', gap: 4, alignItems: 'center' }}>
 
           {/* West */}
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4, zIndex: 4 }}>
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4, zIndex: 4, maxWidth: 110, overflow: 'hidden' }}>
             <PlayerArea player="west" name="West" avatar="W" bid={state.bids.west} tricks={state.tricks.west} lastTrick={state.lastTrickWonBy.west} />
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
               {state.hands.west.slice(0, Math.min(state.hands.west.length, 8)).map((_, i) => (
@@ -193,7 +193,7 @@ export default function GamePage() {
           </div>
 
           {/* East */}
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4, zIndex: 4 }}>
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4, zIndex: 4, maxWidth: 110, overflow: 'hidden' }}>
             <PlayerArea player="east" name="East" avatar="E" bid={state.bids.east} tricks={state.tricks.east} lastTrick={state.lastTrickWonBy.east} />
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
               {state.hands.east.slice(0, Math.min(state.hands.east.length, 8)).map((_, i) => (
