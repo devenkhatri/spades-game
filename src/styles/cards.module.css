@@ -1,7 +1,7 @@
 .card {
-  --card-w: 60px;
-  --card-h: 84px;
-  --card-radius: 8px;
+  --card-w: 44px;
+  --card-h: 62px;
+  --card-radius: 6px;
   width: var(--card-w);
   height: var(--card-h);
   border-radius: var(--card-radius);
@@ -11,7 +11,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  padding: 4px;
+  padding: 3px;
   position: relative;
   cursor: pointer;
   transition: transform 0.15s ease, box-shadow 0.15s ease;
@@ -21,10 +21,10 @@
 }
 
 @media(min-width:480px){
-  .card { --card-w: 66px; --card-h: 92px; }
+  .card { --card-w: 56px; --card-h: 78px; --card-radius: 8px; }
 }
 @media(min-width:768px){
-  .card { --card-w: 72px; --card-h: 100px; --card-radius: 10px; }
+  .card { --card-w: 66px; --card-h: 92px; --card-radius: 10px; }
 }
 
 .card:hover { transform: translateY(-12px); box-shadow: 0 12px 24px rgba(0,0,0,0.5); }
@@ -176,18 +176,18 @@
 }
 
 .playerHandCardWrapper + .playerHandCardWrapper {
-  margin-left: -28px;
+  margin-left: -30px;
 }
 
 @media(min-width: 480px) {
   .playerHandCardWrapper + .playerHandCardWrapper {
-    margin-left: -22px;
+    margin-left: -26px;
   }
 }
 
 @media(min-width: 768px) {
   .playerHandCardWrapper + .playerHandCardWrapper {
-    margin-left: -16px;
+    margin-left: -20px;
   }
 }
 
