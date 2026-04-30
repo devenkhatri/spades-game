@@ -14,60 +14,63 @@ interface PlayerAreaProps {
 }
 
 export const PlayerArea: React.FC<PlayerAreaProps> = ({ player, name, avatar, bid, tricks, lastTrick, isHuman }) => {
-  const bidDisplay = bid ? (bid.blindNil ? 'Blind Nil' : bid.nil ? 'Nil' : `Bid: ${bid.bid}`) : '—';
+  const bidDisplay = bid ? (bid.blindNil ? 'BN' : bid.nil ? 'Nil' : bid.bid) : '-';
+  
+  const getAvatarStyle = () => {
+    switch(player) {
+      case 'south': return { bg: '#3498db', emoji: '👽' };
+      case 'north': return { bg: '#85c1e9', emoji: '🐸' };
+      case 'west': return { bg: '#e74c3c', emoji: '🐦' };
+      case 'east': return { bg: '#d35400', emoji: '🐴' };
+      default: return { bg: '#95a5a6', emoji: '👤' };
+    }
+  };
+
+  const avatarInfo = getAvatarStyle();
 
   return (
-    // Wrapper stacks HUD pill and Last Trick vertically — HUD pill drives the column width
-    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4 }}>
-
-      {/* HUD pill */}
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2 }}>
+      {/* Avatar Box */}
       <div style={{
-        display: 'flex',
-        flexDirection: isHuman ? 'row-reverse' : 'row',
-        alignItems: 'center',
-        gap: '0.4rem',
-        background: 'rgba(0,0,0,0.4)',
-        border: '1px solid var(--glass-border)',
-        borderRadius: '10px',
-        padding: '0.3rem 0.6rem',
-        whiteSpace: 'nowrap',
+        width: '46px', 
+        height: '46px', 
+        borderRadius: '12px',
+        background: avatarInfo.bg,
+        border: '2px solid white',
+        display: 'flex', 
+        alignItems: 'center', 
+        justifyContent: 'center',
+        fontSize: '24px',
+        boxShadow: '0 2px 4px rgba(0,0,0,0.3)',
+        position: 'relative'
       }}>
-        <div style={{
-          width: '30px', height: '30px', borderRadius: '50%',
-          background: isHuman ? 'linear-gradient(135deg,var(--gold),#9a7a1a)' : 'linear-gradient(135deg,#2a3f6e,#3d5a9e)',
-          display: 'flex', alignItems: 'center', justifyContent: 'center',
-          fontSize: isHuman ? '0.5rem' : '0.6rem', fontWeight: 800, color: isHuman ? '#000' : '#fff',
-          flexShrink: 0,
-        }}>
-          {avatar}
-        </div>
-        <div style={{ display: 'flex', flexDirection: 'column' }}>
-          <span style={{ fontSize: '0.65rem', fontWeight: 600, color: 'var(--text)' }}>{name}</span>
-          <span style={{ fontSize: '0.6rem', color: 'var(--text-muted)' }}>{bidDisplay}</span>
-        </div>
-        <div style={{
-          minWidth: '22px', height: '22px', borderRadius: '5px',
-          background: 'rgba(201,162,39,0.15)', border: '1px solid rgba(201,162,39,0.3)',
-          display: 'flex', alignItems: 'center', justifyContent: 'center',
-          fontSize: '0.7rem', fontWeight: 700, color: 'var(--gold)',
-        }}>
-          {tricks}
-        </div>
+        {avatarInfo.emoji}
+      </div>
+      
+      {/* Bid/Tricks Text */}
+      <div style={{
+        fontSize: '0.85rem',
+        fontWeight: 700,
+        color: 'white',
+        textShadow: '1px 1px 2px rgba(0,0,0,0.8)'
+      }}>
+        {tricks}/{bidDisplay}
       </div>
 
-      {/* Last Trick — shown BELOW the HUD pill, never beside it */}
+      {/* Last Trick Display (Optional) */}
       {lastTrick && lastTrick.length > 0 && (
         <div style={{
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
           background: 'rgba(0,0,0,0.5)',
-          border: '1px solid rgba(201,162,39,0.2)',
+          border: '1px solid rgba(255,255,255,0.2)',
           borderRadius: '8px',
-          padding: '3px 6px 4px',
+          padding: '3px 6px',
+          marginTop: '4px',
           gap: 2,
         }}>
-          <span style={{ fontSize: '0.45rem', color: 'var(--gold)', textTransform: 'uppercase', letterSpacing: '0.08em', fontWeight: 700 }}>
+          <span style={{ fontSize: '0.45rem', color: 'white', textTransform: 'uppercase', letterSpacing: '0.08em', fontWeight: 700 }}>
             Last Trick
           </span>
           <div className={styles.miniCardsList}>

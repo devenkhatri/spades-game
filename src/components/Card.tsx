@@ -8,10 +8,11 @@ interface CardProps {
   selected?: boolean;
   unplayable?: boolean;
   isPlayCard?: boolean;
+  isWinning?: boolean;
   onClick?: () => void;
 }
 
-export const Card: React.FC<CardProps> = ({ card, faceDown, selected, unplayable, isPlayCard, onClick }) => {
+export const Card: React.FC<CardProps> = ({ card, faceDown, selected, unplayable, isPlayCard, isWinning, onClick }) => {
   if (faceDown) {
     return <div className={styles.cardBack} />;
   }
@@ -23,7 +24,8 @@ export const Card: React.FC<CardProps> = ({ card, faceDown, selected, unplayable
     styles[card.suit],
     card.rank === 'A' ? styles.ace : '',
     selected ? styles.selected : '',
-    unplayable ? styles.unplayable : ''
+    unplayable ? styles.unplayable : '',
+    isWinning ? styles.winning : ''
   ].filter(Boolean).join(' ');
 
   return (
