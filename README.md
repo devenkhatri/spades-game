@@ -1,36 +1,50 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ♠️ Spades — Premium Card Game
 
-## Getting Started
+A modern, production-ready implementation of the classic Spades card game. Rebuilt from the ground up using **Next.js (App Router)** and **React**, this application delivers a beautiful, mobile-first experience featuring smart AI opponents and rich animations.
 
-First, run the development server:
+![Spades UI](./public/favicon.ico) <!-- Placeholder, use actual screenshots -->
 
+## ✨ Features
+
+### Premium Gameplay Experience
+- **Fluid & Responsive UI:** Fully mobile-optimized design with intelligent CSS grids ensuring cards and HUDs never overlap on small screens.
+- **Rich Aesthetics:** A beautiful "poker felt" textured background, vibrant colored cards (Red Hearts & Diamonds), and premium glassmorphism HUD elements.
+- **Last Trick Tracking:** Instantly review the previous hand! The UI tracks exactly who won the last trick and previews their winning cards with an elegant mini-card fan.
+
+### Fully Featured Ruleset
+- **Standard Spades Mechanics:** Follow-suit rules, trumping with spades, and spade-breaking mechanics.
+- **Bidding System:** Bid your expected tricks. Over-bidding guarantees penalty points; under-bidding risks "bags".
+- **Nil & Blind Nil Bidding:** High risk, high reward options for expert play.
+- **Bag Penalties:** Accumulate 10 bags and suffer a massive -100 point penalty!
+
+### Advanced AI Opponents
+- **Casual Mode:** Relaxed gameplay with basic card dumping and simplified bidding rules.
+- **Standard Mode:** Smarter AI that evaluates its hand carefully and plays strategically to fulfill bids.
+- **Expert Mode:** Highly competitive AI capable of dropping Blind Nil bids and blocking your Nil attempts aggressively.
+
+## 🚀 Getting Started
+
+First, install the dependencies:
+```bash
+npm install
+```
+
+Then, run the development server:
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🏗️ Technical Stack
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- **Framework:** Next.js (App Router)
+- **State Management:** Custom React Hooks (`useSpadesGame`)
+- **Styling:** CSS Modules with global CSS tokens
+- **Language:** TypeScript 
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🛠️ Project Structure
+- `src/lib/` - Pure TypeScript logic for decks, AI routines, scoring rules, and the main game engine hook.
+- `src/components/` - React components for `Card`, `MiniCard`, and `PlayerArea` displays.
+- `src/styles/` - Centralized CSS modules handling transitions, animations, and responsiveness.
+- `src/app/` - The main Next.js entrypoint assembling the entire game board.

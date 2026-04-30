@@ -98,12 +98,14 @@ export default function GamePage() {
         </div>
 
         {/* Play Area */}
-        <div style={{ flex: 1, display: 'grid', gridTemplateAreas: '". north ." "west center east" ". south ."', gridTemplateColumns: '1fr auto 1fr', gridTemplateRows: '1fr auto 1fr', alignItems: 'center', justifyItems: 'center', padding: '0.5rem' }}>
-          <div style={{ gridArea: 'north' }}>{state.trick.find(t => t.player === 'north') && <Card card={state.trick.find(t => t.player === 'north')?.card} isPlayCard />}</div>
-          <div style={{ gridArea: 'west' }}>{state.trick.find(t => t.player === 'west') && <Card card={state.trick.find(t => t.player === 'west')?.card} isPlayCard />}</div>
-          <div style={{ gridArea: 'center', width: '60px', height: '60px' }}></div>
-          <div style={{ gridArea: 'east' }}>{state.trick.find(t => t.player === 'east') && <Card card={state.trick.find(t => t.player === 'east')?.card} isPlayCard />}</div>
-          <div style={{ gridArea: 'south' }}>{state.trick.find(t => t.player === 'south') && <Card card={state.trick.find(t => t.player === 'south')?.card} isPlayCard />}</div>
+        <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '0.5rem', zIndex: 2 }}>
+          <div style={{ display: 'grid', gridTemplateAreas: '". north ." "west center east" ". south ."', gridTemplateColumns: 'minmax(60px, 1fr) minmax(60px, 1fr) minmax(60px, 1fr)', gridTemplateRows: 'minmax(60px, 1fr) minmax(60px, 1fr) minmax(60px, 1fr)', alignItems: 'center', justifyItems: 'center', gap: '0.2rem' }}>
+            <div style={{ gridArea: 'north' }}>{state.trick.find(t => t.player === 'north') && <Card card={state.trick.find(t => t.player === 'north')?.card} isPlayCard />}</div>
+            <div style={{ gridArea: 'west' }}>{state.trick.find(t => t.player === 'west') && <Card card={state.trick.find(t => t.player === 'west')?.card} isPlayCard />}</div>
+            <div style={{ gridArea: 'center', width: '20px', height: '20px' }}></div>
+            <div style={{ gridArea: 'east' }}>{state.trick.find(t => t.player === 'east') && <Card card={state.trick.find(t => t.player === 'east')?.card} isPlayCard />}</div>
+            <div style={{ gridArea: 'south' }}>{state.trick.find(t => t.player === 'south') && <Card card={state.trick.find(t => t.player === 'south')?.card} isPlayCard />}</div>
+          </div>
         </div>
 
         {/* Human Hand */}
