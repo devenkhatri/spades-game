@@ -100,7 +100,7 @@ export default function GamePage() {
       </header>
 
       {/* ── TABLE ── */}
-      <main className="pokerTable" style={{ flex: 1, position: 'relative', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+      <main className="pokerTable" style={{ flex: 1, position: 'relative', display: 'flex', flexDirection: 'column', overflowX: 'hidden', overflowY: 'visible' }}>
 
         {/* North player */}
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '0.5rem 0.5rem 0', gap: '4px', flexShrink: 0, zIndex: 4 }}>
@@ -158,7 +158,7 @@ export default function GamePage() {
 
         {/* Human hand + HUD */}
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '0 0.5rem 0.4rem', gap: '6px', flexShrink: 0, zIndex: 5 }}>
-          <div className={styles.playerHandContainer}>
+          <div className={styles.playerHandContainer} style={{ paddingTop: '18px' }}>
             {state.hands.south.map((card, i) => {
               const isPlayable = playable.some(c => c.suit === card.suit && c.rank === card.rank);
               return (
