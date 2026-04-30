@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="description" content="Play Spades online — a premium card game with 3 difficulty levels, complete Spades rules, nil bids, and smart AI opponents." />
+  <meta name="theme-color" content="#0a0e1a" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <title>Spades — Premium Card Game</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,700;0,900;1,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/cards.css" />
+</head>
+<body>
+
+  <!-- ===== SPLASH SCREEN ===== -->
+  <div id="screen-splash" class="screen active">
+    <div class="splash-bg">
+      <div class="floating-cards">
+        <div class="fc fc1">♠</div>
+        <div class="fc fc2">♥</div>
+        <div class="fc fc3">♦</div>
+        <div class="fc fc4">♣</div>
+        <div class="fc fc5">♠</div>
+        <div class="fc fc6">♠</div>
+      </div>
+    </div>
+    <div class="splash-content">
+      <div class="logo-area">
+        <div class="logo-icon">♠</div>
+        <h1 class="logo-title">SPADES</h1>
+        <p class="logo-subtitle">The Classic Card Game</p>
+      </div>
+      <div class="mode-select-area">
+        <h2 class="mode-heading">Choose Your Mode</h2>
+        <div class="mode-cards">
+          <button class="mode-card" id="mode-casual" data-mode="casual" aria-label="Casual mode">
+            <div class="mode-card-icon">🌿</div>
+            <div class="mode-card-name">Casual</div>
+            <div class="mode-card-desc">Relaxed rules, easy AI. Perfect for beginners learning the ropes.</div>
+            <ul class="mode-card-features">
+              <li>✓ Simple AI opponents</li>
+              <li>✓ No nil bids</li>
+              <li>✓ Forgiving bag rules</li>
+              <li>✓ Hints available</li>
+            </ul>
+            <div class="mode-card-badge">EASY</div>
+          </button>
+          <button class="mode-card featured" id="mode-standard" data-mode="standard" aria-label="Standard mode">
+            <div class="mode-card-icon">⚡</div>
+            <div class="mode-card-name">Standard</div>
+            <div class="mode-card-desc">Full Spades rules with smart AI. The classic experience.</div>
+            <ul class="mode-card-features">
+              <li>✓ Moderate AI strategy</li>
+              <li>✓ Nil bids available</li>
+              <li>✓ Standard bag penalty</li>
+              <li>✓ Card tracking</li>
+            </ul>
+            <div class="mode-card-badge">POPULAR</div>
+          </button>
+          <button class="mode-card" id="mode-expert" data-mode="expert" aria-label="Expert mode">
+            <div class="mode-card-icon">🔥</div>
+            <div class="mode-card-name">Expert</div>
+            <div class="mode-card-desc">Advanced AI with blind nil bids. Only for seasoned players.</div>
+            <ul class="mode-card-features">
+              <li>✓ Expert AI with memory</li>
+              <li>✓ Blind nil bids</li>
+              <li>✓ Strict bag penalty</li>
+              <li>✓ No hints</li>
+            </ul>
+            <div class="mode-card-badge">HARD</div>
+          </button>
+        </div>
+        <button class="btn-start" id="btn-start-game" disabled aria-label="Start game">
+          <span>Start Game</span>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </button>
+      </div>
+      <div class="rules-link">
+        <button id="btn-rules" aria-label="View rules">How to Play ↗</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== RULES MODAL ===== -->
+  <div id="modal-rules" class="modal" role="dialog" aria-modal="true" aria-labelledby="rules-title">
+    <div class="modal-backdrop" id="rules-backdrop"></div>
+    <div class="modal-sheet">
+      <div class="modal-header">
+        <h2 id="rules-title">How to Play Spades</h2>
+        <button class="modal-close" id="rules-close" aria-label="Close rules">✕</button>
+      </div>
+      <div class="modal-body rules-body">
+        <section>
+          <h3>🎯 Objective</h3>
+          <p>Be the first team to reach <strong>500 points</strong>. You play with a partner (North) against two opponents (East & West).</p>
+        </section>
+        <section>
+          <h3>🃏 The Deal</h3>
+          <p>All 52 cards are dealt equally — 13 cards to each player. Spades (♠) are always trump.</p>
+        </section>
+        <section>
+          <h3>📊 Bidding</h3>
+          <p>Each player bids the number of tricks they expect to win. The team's total bid is what you must achieve.</p>
+          <p><strong>Nil Bid:</strong> Bid 0 tricks. If you succeed: +100 pts. If you fail: -100 pts.</p>
+          <p><strong>Blind Nil (Expert):</strong> Bid nil before looking at cards. Success: +200, Fail: -200.</p>
+        </section>
+        <section>
+          <h3>🏆 Scoring</h3>
+          <ul>
+            <li><strong>Made bid:</strong> 10 × bid + 1 per overtrick (bag)</li>
+            <li><strong>Failed bid:</strong> −10 × bid</li>
+            <li><strong>Bags:</strong> Every 10 bags = −100 pts penalty</li>
+          </ul>
+        </section>
+        <section>
+          <h3>🎮 Playing Tricks</h3>
+          <ul>
+            <li>You must follow the led suit if possible</li>
+            <li>Spades cannot lead until "broken" (a spade has been played)</li>
+            <li>Highest card of the led suit wins, unless a spade is played</li>
+            <li>Highest spade wins when spades are played</li>
+          </ul>
+        </section>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== MAIN GAME SCREEN ===== -->
+  <div id="screen-game" class="screen">
+    <!-- Top HUD -->
+    <header class="game-hud">
+      <div class="hud-left">
+        <button class="hud-btn" id="btn-menu" aria-label="Main menu">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        </button>
+        <div class="hud-mode-badge" id="hud-mode-badge">Standard</div>
+      </div>
+      <div class="hud-center">
+        <div class="hud-score-group">
+          <div class="hud-team">
+            <span class="hud-team-label">US</span>
+            <span class="hud-score" id="score-us">0</span>
+            <span class="hud-bags" id="bags-us">🎒 0</span>
+          </div>
+          <div class="hud-divider">vs</div>
+          <div class="hud-team">
+            <span class="hud-team-label">THEM</span>
+            <span class="hud-score" id="score-them">0</span>
+            <span class="hud-bags" id="bags-them">🎒 0</span>
+          </div>
+        </div>
+      </div>
+      <div class="hud-right">
+        <div class="hud-round" id="hud-round">Round 1</div>
+      </div>
+    </header>
+
+    <!-- Game Table -->
+    <main class="game-table" id="game-table">
+      <!-- Player positions -->
+      <div class="player-area player-north" id="player-north">
+        <div class="player-info">
+          <div class="player-avatar" id="avatar-north">N</div>
+          <div class="player-meta">
+            <span class="player-name">North</span>
+            <span class="player-bid" id="bid-north">—</span>
+          </div>
+          <div class="player-tricks" id="tricks-north">0</div>
+        </div>
+        <div class="player-cards" id="cards-north"></div>
+      </div>
+
+      <div class="player-area player-west" id="player-west">
+        <div class="player-info">
+          <div class="player-avatar" id="avatar-west">W</div>
+          <div class="player-meta">
+            <span class="player-name">West</span>
+            <span class="player-bid" id="bid-west">—</span>
+          </div>
+          <div class="player-tricks" id="tricks-west">0</div>
+        </div>
+        <div class="player-cards" id="cards-west"></div>
+      </div>
+
+      <!-- Center play area -->
+      <div class="play-area" id="play-area">
+        <div class="trick-slot trick-north" id="trick-north"></div>
+        <div class="trick-slot trick-west" id="trick-west"></div>
+        <div class="trick-slot trick-center" id="trick-center">
+          <div class="trick-info" id="trick-info"></div>
+        </div>
+        <div class="trick-slot trick-east" id="trick-east"></div>
+        <div class="trick-slot trick-south" id="trick-south"></div>
+      </div>
+
+      <div class="player-area player-east" id="player-east">
+        <div class="player-info">
+          <div class="player-avatar" id="avatar-east">E</div>
+          <div class="player-meta">
+            <span class="player-name">East</span>
+            <span class="player-bid" id="bid-east">—</span>
+          </div>
+          <div class="player-tricks" id="tricks-east">0</div>
+        </div>
+        <div class="player-cards" id="cards-east"></div>
+      </div>
+
+      <!-- Human player area (South) -->
+      <div class="player-area player-south" id="player-south">
+        <div class="player-info player-info-south">
+          <div class="player-avatar avatar-you" id="avatar-south">YOU</div>
+          <div class="player-meta">
+            <span class="player-name">You</span>
+            <span class="player-bid" id="bid-south">—</span>
+          </div>
+          <div class="player-tricks" id="tricks-south">0</div>
+        </div>
+        <div class="player-hand" id="player-hand"></div>
+      </div>
+    </main>
+
+    <!-- Spades broken indicator -->
+    <div class="spades-indicator" id="spades-indicator">
+      <span class="spades-dot broken" id="spades-dot"></span>
+      <span id="spades-text">Spades locked</span>
+    </div>
+
+    <!-- Turn indicator -->
+    <div class="turn-indicator" id="turn-indicator"></div>
+  </div>
+
+  <!-- ===== BIDDING MODAL ===== -->
+  <div id="modal-bid" class="modal" role="dialog" aria-modal="true" aria-labelledby="bid-title">
+    <div class="modal-backdrop" id="bid-backdrop"></div>
+    <div class="modal-sheet bid-sheet">
+      <div class="modal-header">
+        <h2 id="bid-title">Place Your Bid</h2>
+      </div>
+      <div class="modal-body">
+        <div class="bid-context">
+          <div class="bid-info-row">
+            <span class="bid-info-label">Your hand:</span>
+            <span class="bid-hand-preview" id="bid-hand-preview"></span>
+          </div>
+          <div class="bid-info-row" id="bid-partner-row" style="display:none">
+            <span class="bid-info-label">Partner bid:</span>
+            <span class="bid-partner-val" id="bid-partner-val">—</span>
+          </div>
+        </div>
+        <div class="bid-number-display">
+          <button class="bid-arrow" id="bid-dec" aria-label="Decrease bid">−</button>
+          <div class="bid-number" id="bid-number">3</div>
+          <button class="bid-arrow" id="bid-inc" aria-label="Increase bid">+</button>
+        </div>
+        <div class="bid-special-btns">
+          <button class="bid-special-btn" id="btn-nil" aria-label="Bid nil">Nil <span class="bid-special-points">±100</span></button>
+          <button class="bid-special-btn" id="btn-blind-nil" aria-label="Bid blind nil">Blind Nil <span class="bid-special-points">±200</span></button>
+        </div>
+        <button class="btn-confirm-bid" id="btn-confirm-bid" aria-label="Confirm bid">Confirm Bid</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== ROUND SUMMARY MODAL ===== -->
+  <div id="modal-round" class="modal" role="dialog" aria-modal="true" aria-labelledby="round-title">
+    <div class="modal-backdrop"></div>
+    <div class="modal-sheet round-sheet">
+      <div class="modal-header">
+        <h2 id="round-title">Round Complete</h2>
+      </div>
+      <div class="modal-body">
+        <div class="round-summary" id="round-summary"></div>
+        <button class="btn-next-round" id="btn-next-round" aria-label="Next round">Next Round →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== GAME OVER SCREEN ===== -->
+  <div id="screen-gameover" class="screen" role="dialog" aria-labelledby="gameover-title">
+    <div class="gameover-bg">
+      <div class="confetti-container" id="confetti-container"></div>
+    </div>
+    <div class="gameover-content">
+      <div class="gameover-icon" id="gameover-icon">🏆</div>
+      <h1 id="gameover-title" class="gameover-title">You Win!</h1>
+      <p class="gameover-subtitle" id="gameover-subtitle">Congratulations! You've reached 500 points.</p>
+      <div class="gameover-scores" id="gameover-scores"></div>
+      <div class="gameover-actions">
+        <button class="btn-play-again" id="btn-play-again" aria-label="Play again">Play Again</button>
+        <button class="btn-change-mode" id="btn-change-mode" aria-label="Change mode">Change Mode</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== TOAST NOTIFICATION ===== -->
+  <div class="toast-container" id="toast-container" aria-live="polite"></div>
+
+  <!-- Scripts -->
+  <script src="js/cards.js"></script>
+  <script src="js/ai.js"></script>
+  <script src="js/scoring.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/game.js"></script>
+</body>
+</html>
