@@ -77,7 +77,7 @@ export default function GamePage() {
         </div>
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', background: state.spadesBroken ? 'rgba(231,76,60,0.2)' : 'rgba(255,255,255,0.1)', borderRadius: 12, padding: '2px 8px', border: state.spadesBroken ? '1px solid #e74c3c' : '1px solid transparent' }}>
           <span style={{ fontSize: '0.8rem' }}>♠</span>
-          <span style={{ fontSize: '0.5rem', textTransform: 'uppercase' }}>{state.spadesBroken ? 'Broken' : 'Not Broken'}</span>
+          <span style={{ fontSize: '0.5rem', textTransform: 'uppercase' }}>{state.phase === 'playing' || state.phase === 'roundEnd' ? (state.spadesBroken ? 'Broken' : 'Not Broken') : '---'}</span>
         </div>
       </div>
 

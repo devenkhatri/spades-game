@@ -221,8 +221,9 @@ export function useSpadesGame() {
   const nextRound = useCallback(() => {
     if (winner) {
       updateState({ phase: 'gameOver' });
-      setCompletedGames(g => g + 1);
-    } else {
+    }
+    setCompletedGames(g => g + 1);
+    if (!winner) {
       updateState({ round: state.round + 1 });
       startRound({ ...state, round: state.round + 1 });
     }
