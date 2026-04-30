@@ -197,7 +197,13 @@
 }
 
 .playerHandCardWrapper + .playerHandCardWrapper {
-  margin-left: -20px;
+  margin-left: -28px;
+}
+
+@media(min-width: 380px) {
+  .playerHandCardWrapper + .playerHandCardWrapper {
+    margin-left: -24px;
+  }
 }
 
 @media(min-width: 480px) {

@@ -1,4 +1,4 @@
-const CACHE_NAME = 'spades-cache-v1';
+const CACHE_NAME = 'spades-cache-v2';
 
 self.addEventListener('install', (event) => {
   self.skipWaiting();
