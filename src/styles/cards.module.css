@@ -218,9 +218,11 @@
   }
 }
 
-.playerHandCardWrapper:hover {
-  z-index: 20 !important;
-  transform: translateY(-10px);
+@media (hover: hover) and (pointer: fine) {
+  .playerHandCardWrapper:hover {
+    z-index: 20 !important;
+    transform: translateY(-10px);
+  }
 }
 
 @keyframes trickWin {
