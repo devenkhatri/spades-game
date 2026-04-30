@@ -22,6 +22,41 @@ A modern, production-ready implementation of the classic Spades card game. Rebui
 - **Standard Mode:** Smarter AI that evaluates its hand carefully and plays strategically to fulfill bids.
 - **Expert Mode:** Highly competitive AI capable of dropping Blind Nil bids and blocking your Nil attempts aggressively.
 
+## 📖 Core Rules and Gameplay
+
+### Setup
+- Use a standard 52-card deck, with Aces high and 2s low.
+- Partners sit across from each other.
+- Deal all cards out, so each player has 13.
+
+### Bidding
+- Starting to the dealer's left, each player bids the number of tricks they expect to win.
+- A "Nil" bid means betting zero tricks; successfully winning zero tricks yields 100 bonus points, while losing it results in a 100-point penalty.
+
+### Playing Tricks
+- The player to the dealer's left leads the first trick, meaning they lay down a card.
+- Players must follow suit if possible. If a player cannot follow suit, they can play any card, including a spade (trump).
+
+### Winning Tricks
+- The highest card of the suit led wins the trick, unless a spade is played, in which case the highest spade wins.
+- The winner of the trick leads the next card.
+
+### Breaking Spades
+- Spades cannot be led until they have been "broken," meaning a spade has been played on a previous trick because a player could not follow suit.
+
+## 🧮 Scoring
+
+- **Making a Bid:** If a team makes their bid, they get 10 points for each trick bid and 1 point for each overtrick (or "bag").
+- **Bags:** Accumulating 10 bags results in a 100-point penalty.
+- **Missing a Bid:** If a team fails to meet their bid, they lose points equal to 10 times the bid.
+- **Winning the Game:** The first team to 500 points wins. 
+
+## 🧠 Key Strategies
+
+- **Bid Conservatively:** It is better to make your bid and take extra tricks (bags) than to miss your bid.
+- **Spade Control:** Keep high spades to win tricks and low spades to use when you cannot follow suit (trump).
+- **Follow Suit:** Always follow the suit led to prevent opponents from winning with a low spade.
+
 ## 🚀 Getting Started
 
 First, install the dependencies:
