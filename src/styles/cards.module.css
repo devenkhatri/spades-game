@@ -194,37 +194,6 @@
 .playerHandCardWrapper {
   position: relative;
   z-index: 10;
-  transition: transform 0.2s ease, margin 0.2s ease;
-}
-
-.playerHandCardWrapper + .playerHandCardWrapper {
-  margin-left: -28px;
-}
-
-@media(min-width: 380px) {
-  .playerHandCardWrapper + .playerHandCardWrapper {
-    margin-left: -24px;
-  }
-}
-
-@media(min-width: 480px) {
-  .playerHandCardWrapper + .playerHandCardWrapper {
-    margin-left: -16px;
-  }
-}
-
-@media(min-width: 768px) {
-  .playerHandCardWrapper + .playerHandCardWrapper {
-    margin-left: -12px;
-  }
-}
-
-/* Only apply hover lift on mouse/pointer devices, not touch */
-@media (hover: hover) and (pointer: fine) {
-  .playerHandCardWrapper:hover {
-    z-index: 20;
-    transform: translateY(-10px);
-  }
 }
 
 @keyframes trickWin {

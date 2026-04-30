@@ -102,7 +102,6 @@ export default function GamePage() {
       {/* Right: Settings */}
       <div style={{ display: 'flex', gap: 8 }}>
         <button onClick={() => { if(confirm('Exit to menu?')) updateState({ phase: 'splash' }) }} style={{ width: 32, height: 32, borderRadius: '50%', background: 'rgba(255,255,255,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.2rem' }}>⚙️</button>
-        <button style={{ width: 32, height: 32, borderRadius: '50%', background: 'rgba(255,255,255,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.2rem' }}>➕</button>
       </div>
     </header>
   );
