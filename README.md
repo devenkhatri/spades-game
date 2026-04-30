@@ -1,67 +1,36 @@
-# ♠ Spades — Premium Card Game
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-A fully featured, production-ready Spades card game built with vanilla HTML, CSS, and JavaScript. Mobile-first design with a premium dark aesthetic.
+## Getting Started
 
-## Features
-
-- **3 Difficulty Modes** — Casual, Standard, Expert
-- **Full Spades Rules** — Trumping, trick-taking, spades breaking
-- **Bidding System** — Regular bids, Nil, and Blind Nil (Expert mode)
-- **Bag/Sandbag Tracking** — 10-bag penalty enforced
-- **Smart AI Opponents** — North, East, West with difficulty-scaled strategy
-- **Score Tracking** — First to 500 points wins
-- **Mobile-First Design** — Works great on phones and tablets
-- **No dependencies** — Pure HTML/CSS/JS, no build step required
-
-## How to Play
-
-Open `index.html` in any modern browser — no server needed.
+First, run the development server:
 
 ```bash
-open index.html
-# or serve locally:
-npx serve .
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
 ```
 
-## Game Modes
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-| Mode | AI Difficulty | Nil Bids | Blind Nil | Bag Penalty |
-|------|--------------|----------|-----------|-------------|
-| Casual | Easy | ✗ | ✗ | Lenient |
-| Standard | Medium | ✓ | ✗ | Standard (10 bags = −100) |
-| Expert | Hard | ✓ | ✓ | Strict (10 bags = −100) |
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-## Spades Rules Summary
+This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-1. 4 players — You (South) + AI partner (North) vs AI East & West
-2. 13 cards dealt to each player each round
-3. Each player bids how many tricks they'll win
-4. **Spades are always trump** — but can't lead spades until broken
-5. Must follow the led suit if possible
-6. Highest card of led suit wins unless a spade is played
-7. Score = 10 × bid + bags; fail a bid = −10 × bid
+## Learn More
 
-## Project Structure
+To learn more about Next.js, take a look at the following resources:
 
-```
-spades-game/
-├── index.html       # Main entry point
-├── css/
-│   ├── style.css    # Design system, layout, animations
-│   └── cards.css    # Card rendering styles
-├── js/
-│   ├── cards.js     # Deck, deal, card utilities
-│   ├── ai.js        # AI bidding & play logic
-│   ├── scoring.js   # Score calculation
-│   ├── ui.js        # DOM rendering & animations
-│   └── game.js      # Core game state & flow
-└── README.md
-```
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-## Browser Support
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-Chrome 90+, Firefox 88+, Safari 14+, Edge 90+
+## Deploy on Vercel
 
-## License
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-MIT
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.

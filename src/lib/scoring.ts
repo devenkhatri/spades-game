@@ -1,26 +1,45 @@
-// scoring.js — Score calculation and tracking
+import { Bid, Mode, Player } from './types';
 
-// Bids structure: { south, north, east, west }
-// Tricks structure: { south, north, east, west }
-// Each entry: { bid, nil, blindNil, tricks }
+export interface ScoreBreakdown {
+  label: string;
+  value: string;
+  type: 'positive' | 'negative' | 'warning';
+}
 
-function calculateRoundScore(bids, tricks) {
-  const us = scoreTeam(bids.south, bids.north, tricks.south, tricks.north);
-  const them = scoreTeam(bids.east, bids.west, tricks.east, tricks.west);
+export interface TeamScore {
+  points: number;
+  bags: number;
+  breakdown: ScoreBreakdown[];
+}
+
+export interface RoundResult {
+  us: TeamScore;
+  them: TeamScore;
+}
+
+export function calculateRoundScore(bids: Partial<Record<Player, Bid>>, tricks: Record<Player, number>): RoundResult {
+  const defaultBid: Bid = { bid: 1, nil: false, blindNil: false, player: 'Unknown' };
+  
+  const bidSouth = bids.south || defaultBid;
+  const bidNorth = bids.north || defaultBid;
+  const bidEast = bids.east || defaultBid;
+  const bidWest = bids.west || defaultBid;
+
+  const us = scoreTeam(bidSouth, bidNorth, tricks.south, tricks.north);
+  const them = scoreTeam(bidEast, bidWest, tricks.east, tricks.west);
+  
   return { us, them };
 }
 
-function scoreTeam(bidA, bidB, tricksA, tricksB) {
+function scoreTeam(bidA: Bid, bidB: Bid, tricksA: number, tricksB: number): TeamScore {
   const totalTricks = tricksA + tricksB;
   let points = 0;
   let bags = 0;
-  const breakdown = [];
+  const breakdown: ScoreBreakdown[] = [];
 
-  // Handle nil bids individually
   let teamBid = 0;
   let teamTricks = totalTricks;
 
-  // Player A nil scoring
   if (bidA.nil || bidA.blindNil) {
     const bonus = bidA.blindNil ? 200 : 100;
     if (tricksA === 0) {
@@ -29,13 +48,12 @@ function scoreTeam(bidA, bidB, tricksA, tricksB) {
     } else {
       points -= bonus;
       breakdown.push({ label: `${bidA.player} Nil Failed`, value: `-${bonus}`, type: 'negative' });
-      teamTricks -= tricksA; // nil tricks don't count for partner's bid calculation
+      teamTricks -= tricksA;
     }
   } else {
     teamBid += bidA.bid;
   }
 
-  // Player B nil scoring
   if (bidB.nil || bidB.blindNil) {
     const bonus = bidB.blindNil ? 200 : 100;
     if (tricksB === 0) {
@@ -50,7 +68,6 @@ function scoreTeam(bidA, bidB, tricksA, tricksB) {
     teamBid += bidB.bid;
   }
 
-  // Team bid evaluation (combining non-nil players)
   const nonNilTricks = (bidA.nil || bidA.blindNil ? 0 : tricksA) +
                        (bidB.nil || bidB.blindNil ? 0 : tricksB);
 
@@ -70,19 +87,16 @@ function scoreTeam(bidA, bidB, tricksA, tricksB) {
   return { points, bags, breakdown };
 }
 
-function applyBagPenalty(totalBags, newBags, mode) {
+export function applyBagPenalty(totalBags: number, newBags: number, mode: Mode): { penalty: number; overflow: boolean } {
   const threshold = 10;
-  const oldMod = totalBags % threshold;
-  const newMod = (totalBags + newBags) % threshold;
   const overflows = Math.floor((totalBags + newBags) / threshold) - Math.floor(totalBags / threshold);
   const penalty = overflows * 100;
   return { penalty, overflow: overflows > 0 };
 }
 
-// Check win condition
-function checkWin(scoreUs, scoreThem, mode) {
+export function checkWin(scoreUs: number, scoreThem: number, mode: Mode): 'us' | 'them' | null {
   const target = 500;
-  const bust = mode === 'expert' ? -200 : null; // Expert: busting -200 = loss
+  const bust = mode === 'expert' ? -200 : null;
   if (scoreUs >= target && scoreUs > scoreThem) return 'us';
   if (scoreThem >= target && scoreThem > scoreUs) return 'them';
   if (scoreUs >= target && scoreThem >= target) {

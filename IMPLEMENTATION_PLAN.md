@@ -1,106 +1,58 @@
-# Spades Card Game — Full Implementation Plan
+# Spades Card Game — Next.js Implementation Plan
 
-## Overview
+## Goal Description
+Migrate the existing Vanilla HTML/JS Spades game to a robust **Next.js** application. The update will introduce colored playing cards (standard red/black suits instead of monochrome), display the last won trick next to the player who won it, and ensure a highly polished, mobile-first responsive design. 
 
-A full-featured, production-ready Spades card game built as a single-page web application using **Vanilla HTML/CSS/JS** with a premium mobile-first design. The game supports solo play against AI opponents with configurable complexity levels.
+> [!IMPORTANT]
+> **User Review Required:**
+> We are pivoting from a pure Vanilla JS/HTML stack to a React-based Next.js architecture. This involves recreating the UI as React components and porting the game engine logic into React state hooks and utility functions. 
 
----
+> [!WARNING]
+> **Open Questions:**
+> 1. Should we use `create-next-app` to bootstrap the Next.js project inside the current directory (overwriting the existing structure), or would you prefer it in a subdirectory? (I will assume installing directly in the root directory and cleaning up old HTML/JS).
+> 2. For styling, should we stick to Vanilla CSS (as per standard guidelines) via CSS Modules, or do you prefer Tailwind CSS for this Next.js project? (I will plan to use CSS Modules to maintain our custom glassmorphism design without Tailwind, unless you specify otherwise).
 
-## Architecture
+## Proposed Changes
 
-### Technology Stack
-- **HTML5** — Semantic structure, canvas-free card rendering
-- **CSS3** — Custom properties, animations, glassmorphism, responsive design
-- **Vanilla JS (ES6+)** — Game engine, AI logic, state management
-- **Google Fonts** — Inter + Playfair Display for premium typography
-- **No external dependencies** — Fully self-contained
+### Next.js Setup & Architecture
+Initialize a Next.js (App Router) project. We will port the game logic (`ai.js`, `cards.js`, `scoring.js`) into a `lib/` directory and reconstruct the UI (`ui.js`, `index.html`) using React components.
 
----
+#### [DELETE] Existing Vanilla Files
+- `index.html`
+- `css/style.css`, `css/cards.css`
+- `js/game.js`, `js/ui.js`, `js/ai.js`, `js/cards.js`, `js/scoring.js`
 
-## Game Features
+#### [NEW] Next.js Structure
+- `src/app/page.tsx`: Main game screen and mode selection.
+- `src/app/layout.tsx`: Root layout, fonts (Inter, Playfair Display), and global metadata.
+- `src/components/`:
+  - `Card.tsx`: Updated card component with proper red/black colors based on suits.
+  - `GameTable.tsx`: Main play area component.
+  - `PlayerArea.tsx`: Displays player info, their current hand/cards, and a new sub-component for the "Last Won Trick".
+  - `BiddingModal.tsx`, `RoundSummaryModal.tsx`, `GameOverScreen.tsx`: React ports of existing modals.
+- `src/lib/`:
+  - `gameEngine.ts`: React hook (`useSpadesGame`) managing the complex state of rounds, tricks, bidding, and phases.
+  - `cards.ts`, `ai.ts`, `scoring.ts`: Ported pure functions from the previous implementation.
+- `src/styles/`:
+  - `globals.css`: Ported base CSS, design tokens, and glassmorphism styling.
+  - `cards.module.css`: Ported and updated card styles supporting colored suits.
 
-### Complexity Modes
-| Mode | Description |
-|------|-------------|
-| **Casual** | Simple AI, forgiving rules, no nil bids |
-| **Standard** | Moderate AI, standard Spades rules, nil bids available |
-| **Expert** | Advanced AI, blind nil, strict bag penalties |
+### Feature Implementations
 
-### Core Spades Rules
-- 4 players: Human (South) + 3 AI opponents (North, East, West)
-- 52-card deck, 13 cards per player
-- Trump suit: Spades ♠
-- Bidding phase before each round
-- Nil bid (Expert: Blind Nil)
-- Bag/sandbag tracking (10-bag penalty = -100)
-- Score tracking across multiple rounds
-- Win condition: First to 500 points wins
-
-### AI Behavior by Difficulty
-- **Casual**: Random legal play with basic hand evaluation
-- **Standard**: Considers trump, partner's cards, bid tracking
-- **Expert**: Full hand analysis, nil support, squeeze plays, memory of played cards
-
----
-
-## File Structure
-
-```
-spades-game/
-├── index.html          — Main entry point
-├── css/
-│   ├── style.css       — Design system, layout, animations
-│   └── cards.css       — Card rendering styles
-├── js/
-│   ├── game.js         — Core game state & flow controller
-│   ├── ai.js           — AI bidding & card play logic
-│   ├── cards.js        — Deck, deal, card utilities
-│   ├── scoring.js      — Score calculation & tracking
-│   └── ui.js           — DOM rendering & animations
-├── assets/
-│   └── sounds/         — (Optional) Card play SFX
-└── README.md
-```
-
----
-
-## Design System
-
-### Color Palette
-- Background: Deep navy `#0a0e1a` with subtle gradient
-- Card table: Dark green felt `#0d2818` → `#1a4a2e`
-- Accent: Gold `#c9a227`
-- Spades: White on dark
-- UI panels: Glassmorphism with `rgba(255,255,255,0.08)` + backdrop blur
-- Score: Emerald green highlights
-- Danger/Bags: Amber warnings
-
-### Mobile-First Breakpoints
-- Base: 320px (mobile)
-- sm: 480px
-- md: 768px (tablet)
-- lg: 1024px (desktop)
-
-### Key UI Screens
-1. **Welcome/Mode Select** — Full-screen animated splash with complexity picker
-2. **Game Table** — Card table with 4 player positions, score panel
-3. **Bidding Modal** — Slide-up bid selector with nil/blind nil options
-4. **Round End Summary** — Score breakdown card
-5. **Game Over** — Win/loss celebration screen
-
----
-
-## Game Flow
-
-```
-Start → Mode Select → Deal → Bidding Phase → Trick-Taking Phase → 
-Round Scoring → [Repeat until 500] → Game Over
-```
-
----
+1. **Colored Cards**: 
+   - Update the card rendering logic to apply specific styles for Hearts (♥) and Diamonds (♦) using vibrant red, while Spades (♠) and Clubs (♣) use rich dark colors.
+2. **Last Won Trick Display**: 
+   - Add state to track the `lastTrickWonBy: Record<Player, Trick>`. 
+   - Update the UI in `PlayerArea.tsx` to display a miniaturized version of the last 4 cards won by that specific player/team, placed next to their avatar or trick count.
+3. **Responsive Mobile-First UI**: 
+   - Refactor grid layouts in React to perfectly scale down to 320px mobile viewports.
+   - Optimize touch targets for card selection and bidding.
 
 ## Verification Plan
-- Test all 3 difficulty modes
-- Verify mobile layout on 375px viewport
-- Verify all Spades rules (bags, nil scoring, trump)
-- Test game-over conditions in both win/loss scenarios
+
+### Automated/Manual Verification
+- Run `npm run dev` and verify the game loads cleanly.
+- Test responsive layout on mobile viewport sizes (e.g., iPhone SE sizing in DevTools).
+- Play a round to verify that playing Hearts/Diamonds renders as Red.
+- Win a trick and verify that the 4 cards from that trick move to/appear at the winning player's designated "last trick" area.
+- Complete a round to ensure React state properly handles trick evaluation and scoring.

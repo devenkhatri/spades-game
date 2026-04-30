@@ -1,0 +1,138 @@
+.card {
+  --card-w: 60px;
+  --card-h: 84px;
+  --card-radius: 8px;
+  width: var(--card-w);
+  height: var(--card-h);
+  border-radius: var(--card-radius);
+  background: #fff;
+  border: 1px solid #ddd;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4px;
+  position: relative;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  user-select: none;
+  flex-shrink: 0;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+}
+
+@media(min-width:480px){
+  .card { --card-w: 66px; --card-h: 92px; }
+}
+@media(min-width:768px){
+  .card { --card-w: 72px; --card-h: 100px; --card-radius: 10px; }
+}
+
+.card:hover { transform: translateY(-12px); box-shadow: 0 12px 24px rgba(0,0,0,0.5); }
+.card.selected { transform: translateY(-16px); box-shadow: 0 0 0 2px #c9a227, 0 14px 28px rgba(201,162,39,0.4); }
+.card.unplayable { opacity: 0.45; cursor: not-allowed; }
+.card.unplayable:hover { transform: none; }
+
+.corner { display: flex; flex-direction: column; align-items: center; line-height: 1.1; }
+.cornerBottom { transform: rotate(180deg); }
+.rank { font-size: 0.75rem; font-weight: 800; line-height: 1; font-family: 'Inter', sans-serif; }
+.suitSm { font-size: 0.7rem; line-height: 1; }
+.suitCenter { font-size: 1.6rem; line-height: 1; }
+
+.spades .rank, .spades .suitSm, .spades .suitCenter { color: #1a1a2e; }
+.clubs .rank, .clubs .suitSm, .clubs .suitCenter  { color: #1a1a2e; }
+.hearts .rank, .hearts .suitSm, .hearts .suitCenter { color: #e74c3c; } /* RED! */
+.diamonds .rank, .diamonds .suitSm, .diamonds .suitCenter { color: #e74c3c; } /* RED! */
+
+.ace { background: linear-gradient(145deg, #fffef8, #f5f0e0); }
+.spades.ace { background: linear-gradient(145deg, #f0f0ff, #e8e8f8); }
+
+.cardBack {
+  width: var(--card-w);
+  height: var(--card-h);
+  border-radius: var(--card-radius);
+  background: linear-gradient(135deg, #1a2a6e 0%, #2a3f9e 50%, #1a2a6e 100%);
+  border: 1px solid rgba(255,255,255,0.2);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.cardBack::before {
+  content: '♠';
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  color: rgba(255,255,255,0.15);
+}
+.cardBack::after {
+  content: '';
+  position: absolute;
+  inset: 4px;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 4px;
+}
+
+.playCard {
+  width: calc(var(--card-w) * 0.9);
+  height: calc(var(--card-h) * 0.9);
+  border-radius: var(--card-radius);
+  background: #fff;
+  border: 1px solid #ddd;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 3px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.5);
+  animation: dealIn 0.2s ease;
+  position: relative;
+}
+@keyframes dealIn { from { transform: scale(0.7) translateY(-10px); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+.playCard.winning { box-shadow: 0 0 0 2px #c9a227, 0 4px 16px rgba(201,162,39,0.4); }
+
+.miniCard {
+  width: 20px;
+  height: 28px;
+  border-radius: 3px;
+  background: #fff;
+  border: 1px solid #ddd;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.6rem;
+  margin-left: -10px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+}
+.miniCard:first-child { margin-left: 0; }
+.miniCard.spades, .miniCard.clubs { color: #1a1a2e; }
+.miniCard.hearts, .miniCard.diamonds { color: #e74c3c; }
+
+.lastTrickContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background: rgba(0,0,0,0.3);
+  padding: 4px 8px;
+  border-radius: 6px;
+  margin-top: 4px;
+}
+.lastTrickLabel {
+  font-size: 0.55rem;
+  color: #8a9ab5;
+  margin-right: 6px;
+  text-transform: uppercase;
+}
+.miniCardsList {
+  display: flex;
+  flex-direction: row;
+}
+
+@keyframes trickWin {
+  0%   { box-shadow: 0 0 0 0 rgba(201,162,39,0.8); }
+  70%  { box-shadow: 0 0 0 14px rgba(201,162,39,0); }
+  100% { box-shadow: 0 0 0 0 rgba(201,162,39,0); }
+}
+.trickWinner { animation: trickWin 0.6s ease-out; }
