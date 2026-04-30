@@ -30,6 +30,7 @@ body{
   min-height: 100vh;
   overflow: hidden;
   touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }
 button{cursor:pointer;border:none;background:none;font-family:inherit}
 ul{list-style:none}
