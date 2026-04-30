@@ -124,7 +124,7 @@ export function useSpadesGame() {
     let currentTricks = { ...st.tricks };
     let spadesBroken = st.spadesBroken;
     let playedCards = [...st.playedCards];
-    let lastTrickRecord = { ...st.lastTrickWonBy };
+    let lastTrickRecord: Partial<Record<Player, PlayedCard[]>> = { ...st.lastTrickWonBy };
 
     for (let trickNum = 0; trickNum < 13; trickNum++) {
       currentTrick = [];
@@ -170,11 +170,11 @@ export function useSpadesGame() {
       updateState({ tricks: { ...currentTricks } });
       await sleep(1000); // Show completed trick
 
-      // Save this trick to the winner's "last trick" record
+      lastTrickRecord = {};
       lastTrickRecord[winnerPlayer] = [...currentTrick];
       
       leadIdx = leadOrder.indexOf(winnerPlayer);
-      updateState({ trick: [], lastTrickWonBy: { ...lastTrickRecord } });
+      updateState({ trick: [], lastTrickWonBy: lastTrickRecord });
     }
 
     endRound(st.bids, currentTricks, st.scoreUs, st.scoreThem, st.bagsUs, st.bagsThem, st.mode);

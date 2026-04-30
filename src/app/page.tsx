@@ -72,7 +72,7 @@ export default function GamePage() {
       </header>
 
       {/* Table */}
-      <main style={{ flex: 1, position: 'relative', background: 'radial-gradient(ellipse at center,var(--table2) 0%,var(--table) 60%,#061208 100%)', display: 'flex', flexDirection: 'column', alignItems: 'stretch', overflow: 'hidden' }}>
+      <main className="pokerTable" style={{ flex: 1, position: 'relative', display: 'flex', flexDirection: 'column', alignItems: 'stretch', overflow: 'hidden' }}>
         
         <div style={{ width: '100%', display: 'flex', justifyContent: 'center', padding: '0.5rem' }}>
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem' }}>
@@ -107,12 +107,12 @@ export default function GamePage() {
         </div>
 
         {/* Human Hand */}
-        <div style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '0.5rem', gap: '0.5rem' }}>
-          <div style={{ display: 'flex', justifyContent: 'center', padding: '0.5rem 0', minHeight: '90px' }}>
+        <div style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '0.5rem', gap: '0.5rem', zIndex: 5 }}>
+          <div className={styles.playerHandContainer}>
             {state.hands.south.map((card, i) => {
               const isPlayable = playable.some(c => c.suit === card.suit && c.rank === card.rank);
               return (
-                <div key={i} style={{ marginLeft: i === 0 ? 0 : '-22px', position: 'relative', zIndex: isPlayable ? 10 : 1 }}>
+                <div key={i} className={styles.playerHandCardWrapper} style={{ zIndex: isPlayable ? 10 : 1 }}>
                   <Card 
                     card={card} 
                     unplayable={awaitingPlayerCard && !isPlayable} 

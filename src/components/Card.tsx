@@ -44,7 +44,8 @@ export const Card: React.FC<CardProps> = ({ card, faceDown, selected, unplayable
 export const MiniCard: React.FC<{ card: CardType }> = ({ card }) => {
   return (
     <div className={`${styles.miniCard} ${styles[card.suit]}`} title={`${card.rank} of ${card.suit}`}>
-      {card.symbol}
+      <span className={styles.miniCardRank}>{card.rank}</span>
+      <span className={styles.miniCardSuit}>{card.symbol}</span>
     </div>
   );
 };
